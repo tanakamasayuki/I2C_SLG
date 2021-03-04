@@ -24,7 +24,7 @@ const char* htmlIODisplayString = R"html(
 <tr><td>5</td><td>#IO5#</td><td>VCC</td><td>GPIO/SLA_3</td></tr>
 <tr><td>6</td><td></td><td>VCC</td><td>GPO(Output ONLY)</td></tr>
 <tr><td>7</td><td></td><td>VCC2</td><td>GPO(Output ONLY)</td></tr>
-<tr><td>8</td><td></td><td>VCC2</td><td>GPO(Output ONLY)</td></tr>
+<tr><td>8</td><td>#IO8#</td><td>VCC2</td><td>GPIO</td></tr>
 <tr><td>9</td><td>#IO9#</td><td>VCC2</td><td>GPIO/Vref_OUT1</td></tr>
 <tr><td>10</td><td>#IO10#</td><td>VCC2</td><td>GPIO/Vref_OUT0</td></tr>
 <tr><td>11</td><td>#IO11#</td><td>VCC2</td><td>GPIO/ACMP3L_IN</td></tr>

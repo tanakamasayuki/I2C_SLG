@@ -27,6 +27,7 @@ void handleRoot(void) {
       htmlItem.replace("#IO3#", level[slg.digitalRead(controlCode, 3)]);
       htmlItem.replace("#IO4#", level[slg.digitalRead(controlCode, 4)]);
       htmlItem.replace("#IO5#", level[slg.digitalRead(controlCode, 5)]);
+      htmlItem.replace("#IO8#", level[slg.digitalRead(controlCode, 8)]);
       htmlItem.replace("#IO9#", level[slg.digitalRead(controlCode, 9)]);
       htmlItem.replace("#IO10#", level[slg.digitalRead(controlCode, 10)]);
       htmlItem.replace("#IO11#", level[slg.digitalRead(controlCode, 11)]);
