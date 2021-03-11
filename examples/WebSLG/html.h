@@ -6,6 +6,7 @@ const char* htmlBodyString = R"html(
 <title>#TITLE#</title>
 </head>
 <body>
+<h1>SLG46826 Web Tool</h1>
 #BODY#
 </body>
 </html>
@@ -38,9 +39,11 @@ const char* htmlWriteString = R"html(
 <h3>Write</h3>
 <form action="write" method="get">
   <input type="hidden" name="controlCode" value="#CONTROL_CODE#" />
-  <textarea name="data" rows="4" cols="60">
-
-</textarea><br />
-  <input type="submit">
+  <select name="nvm">
+    <option value="0">Register</option>
+    <option value="1">NVM</option>
+  </select><br />
+  <textarea name="data" rows="4" cols="60"></textarea><br />
+  <input type="submit" />
 </form>
 )html";

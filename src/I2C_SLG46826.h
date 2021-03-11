@@ -25,31 +25,35 @@ class I2C_SLG46826 {
       return true;
     }
 
-    bool readSlg(uint8_t controlCode, uint8_t data[256]) {
+    bool readSlg(uint8_t controlCode, uint8_t data[256], uint8_t nvm = 1) {
       if (!scanSlg(controlCode)) {
         return false;
       }
 
       for (uint8_t i = 0; i < 16; i++) {
-        readRegEx(controlCode * 8 + 2, i * 16, &data[i * 16], 16);
+        readRegEx(controlCode * 8 + 1 + nvm, i * 16, &data[i * 16], 16);
       }
 
       return true;
     }
 
-    bool writeSlg(uint8_t controlCode, const uint8_t data[256]) {
+    bool writeSlg(uint8_t controlCode, const uint8_t data[256], uint8_t mode = 1) {
+      log_v("writeSlg(0x%02X, *, %d)", controlCode, mode);
+
       if (!scanSlg(controlCode)) {
         return false;
       }
 
       for (uint8_t i = 0; i < 16; i++) {
-        writeRegEx(controlCode * 8 + 2, i * 16, &data[i * 16], 16);
+        writeRegEx(controlCode * 8 + 1 + mode, i * 16, &data[i * 16], 16);
       }
 
       return true;
     }
 
     bool eraseSlg(uint8_t controlCode) {
+      log_v("eraseSlg(0x%02X)", controlCode);
+
       if (!scanSlg(controlCode)) {
         return false;
       }
@@ -62,6 +66,8 @@ class I2C_SLG46826 {
     }
 
     bool resetSlg(uint8_t controlCode) {
+      log_v("resetSlg(0x%02X)", controlCode);
+
       if (!scanSlg(controlCode)) {
         return false;
       }
@@ -114,6 +120,7 @@ class I2C_SLG46826 {
     }
 
     void writeReg(uint8_t deviceAddress, uint8_t reg, uint8_t data) {
+      log_v("writeReg(0x%02X, 0x%02X, 0x%02X)", deviceAddress, reg, data);
       uint32_t clock = _i2cWire->getClock();
       _i2cWire->setClock(100000);
       _i2cWire->beginTransmission(deviceAddress);
@@ -121,20 +128,22 @@ class I2C_SLG46826 {
       _i2cWire->write(data);
       _i2cWire->endTransmission();
       _i2cWire->setClock(clock);
-      delay(100);
+      delay(10);
     }
 
     void writeRegEx(uint8_t deviceAddress, uint8_t reg, const uint8_t *data, uint8_t size) {
+      log_v("writeRegEx(0x%02X, 0x%02X, *, %d)", deviceAddress, reg, size);
       uint32_t clock = _i2cWire->getClock();
       _i2cWire->setClock(100000);
       _i2cWire->beginTransmission(deviceAddress);
       _i2cWire->write(reg);
       for (int i = 0; i < size; i++) {
+        log_v("write(0x%02X)", data[i]);
         _i2cWire->write(data[i]);
       }
       _i2cWire->endTransmission();
       _i2cWire->setClock(clock);
-      delay(100);
+      delay(10);
     }
 
     uint8_t readReg(uint8_t deviceAddress, uint8_t reg) {

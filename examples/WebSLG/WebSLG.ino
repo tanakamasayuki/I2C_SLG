@@ -37,25 +37,68 @@ void handleRoot(void) {
 
       body += htmlItem;
 
-      // Read
+      // Read Register
       uint8_t data[256];
-      htmlItem = "<h3>Read</h3>\n";
+      htmlItem = "<h3>Read Register</h3>\n";
+      htmlItem += "<pre>\n";
       memset(data, 0, sizeof(data));
-      if (slg.readSlg(controlCode, data)) {
+      if (slg.readSlg(controlCode, data, 0)) {
         for (int i = 0; i < 16; i++) {
+          char num[16];
+          uint8_t checksum = 0;
+          snprintf(num, 16, ":1000%1X000", i);
+          htmlItem += num;
+          checksum += 0x10;
+          checksum += (i * 16);
           for (int j = 0; j < 16; j++) {
-            char num[16];
             snprintf(num, 16, "%02X", data[i * 16 + j]);
             htmlItem += num;
+            checksum += data[i * 16 + j];
           }
-          htmlItem += "<br />\n";
+          checksum = (checksum ^ 0xff) + 1;
+          snprintf(num, 16, "%02X", checksum);
+          htmlItem += num;
+
+          htmlItem += "\n";
         }
       }
+      htmlItem += ":00000001FF\n";
+      htmlItem += "</pre>\n";
       body += htmlItem;
 
-      // Erase
-      htmlItem = "<h3>Erase</h3>\n";
-      htmlItem += "[<a href=\"/erase?controlCode=" + String(controlCode) + "\">Erase</a>]<br />\n";
+      // Read NVM
+      htmlItem = "<h3>Read NVM</h3>\n";
+      htmlItem += "<pre>\n";
+      memset(data, 0, sizeof(data));
+      if (slg.readSlg(controlCode, data, 1)) {
+        for (int i = 0; i < 16; i++) {
+          char num[16];
+          uint8_t checksum = 0;
+          snprintf(num, 16, ":1000%1X000", i);
+          htmlItem += num;
+          checksum += 0x10;
+          checksum += (i * 16);
+          for (int j = 0; j < 16; j++) {
+            snprintf(num, 16, "%02X", data[i * 16 + j]);
+            htmlItem += num;
+            checksum += data[i * 16 + j];
+          }
+          checksum = (checksum ^ 0xff) + 1;
+          snprintf(num, 16, "%02X", checksum);
+          htmlItem += num;
+
+          htmlItem += "\n";
+        }
+      }
+      htmlItem += ":00000001FF\n";
+      htmlItem += "</pre>\n";
+      body += htmlItem;
+
+      // Functions
+      htmlItem = "<h3>Functions</h3>\n";
+      htmlItem += "[<a href=\"/erase?controlCode=" + String(controlCode) + "\">Erase</a>] ";
+      htmlItem += "[<a href=\"/reset?controlCode=" + String(controlCode) + "\">Reset</a>] ";
+      htmlItem += "<br />\n";
       body += htmlItem;
 
       // Write
@@ -95,8 +138,8 @@ void handleErase(void) {
 }
 
 void handleWrite(void) {
-Serial.println("handleWrite");
   int controlCode = server.arg("controlCode").toInt();
+  int nvm = server.arg("nvm").toInt();
   String hexString = server.arg("data");
   String html = htmlBodyString;
   html.replace("#TITLE#", "SLG Lib Write");
@@ -149,26 +192,50 @@ Serial.println("handleWrite");
   }
 
   // print
+  body += "<pre>";
   for (int i = 0; i < 16; i++) {
     for (int j = 0; j < 16; j++) {
       char num[16];
       snprintf(num, 16, "%02X", hexData[i][j]);
       body += num;
     }
-    body += "<br />\n";
+    body += "\n";
   }
-  body += "<br />\n";
+  body += "</pre>\n";
 
-  slg.eraseSlg(controlCode);
-  slg.resetSlg(controlCode);
+  if (nvm) {
+    slg.eraseSlg(controlCode);
+    slg.resetSlg(controlCode);
+    controlCode = 0;
+  }
 
-  if (slg.writeSlg(0, &hexData[0][0])) {
+  if (slg.writeSlg(controlCode, &hexData[0][0], nvm)) {
     body += "Write SLG46826.<br />\n";
   } else {
     body += "Write SLG46826 failure!<br />\n";
   }
-  slg.resetSlg(0);
-  body += "Resetting SLG46826.<br />\n";
+  if (nvm) {
+    slg.resetSlg(controlCode);
+    body += "Resetting SLG46826.<br />\n";
+  }
+
+  body += "<br />\n";
+  body += "[ <a href=\"/\">Retarn HOME</a> ]<br />\n";
+
+  html.replace("#BODY#", body);
+  server.send(200, "text/html", html);
+}
+
+void handleReset(void) {
+  int controlCode = server.arg("controlCode").toInt();
+
+  String html = htmlBodyString;
+  html.replace("#TITLE#", "SLG Lib Reset");
+
+  String body = "";
+  body += "<h2>Reset</h2>\n";
+
+  slg.resetSlg(controlCode);
 
   body += "<br />\n";
   body += "[ <a href=\"/\">Retarn HOME</a> ]<br />\n";
@@ -200,6 +267,7 @@ void setup() {
   server.on("/", handleRoot);
   server.on("/erase", handleErase);
   server.on("/write", handleWrite);
+  server.on("/reset", handleReset);
 
   server.begin();
 }
