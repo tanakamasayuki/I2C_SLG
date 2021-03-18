@@ -38,11 +38,18 @@ void handleRoot(void) {
       body += htmlItem;
 
       // Read Register
-      uint8_t data[256];
+      slg_register_t slgReg;
+      ;
       htmlItem = "<h3>Read Register</h3>\n";
       htmlItem += "<pre>\n";
-      memset(data, 0, sizeof(data));
-      if (slg.readSlg(controlCode, data, 0)) {
+      memset(slgReg.reg_data, 0, sizeof(slgReg.reg_data));
+      if (slg.readSlg(controlCode, slgReg.reg_data, 0)) {
+        debug_print_slg46826(slgReg);
+
+        for (int i = 0; i < 256; i++) {
+          Serial.printf("%02X : %3d(0x%02X)\n", i, slgReg.reg_data[i], slgReg.reg_data[i]);
+        }
+
         for (int i = 0; i < 16; i++) {
           char num[16];
           uint8_t checksum = 0;
@@ -51,9 +58,9 @@ void handleRoot(void) {
           checksum += 0x10;
           checksum += (i * 16);
           for (int j = 0; j < 16; j++) {
-            snprintf(num, 16, "%02X", data[i * 16 + j]);
+            snprintf(num, 16, "%02X", slgReg.reg_data[i * 16 + j]);
             htmlItem += num;
-            checksum += data[i * 16 + j];
+            checksum += slgReg.reg_data[i * 16 + j];
           }
           checksum = (checksum ^ 0xff) + 1;
           snprintf(num, 16, "%02X", checksum);
@@ -69,8 +76,8 @@ void handleRoot(void) {
       // Read NVM
       htmlItem = "<h3>Read NVM</h3>\n";
       htmlItem += "<pre>\n";
-      memset(data, 0, sizeof(data));
-      if (slg.readSlg(controlCode, data, 1)) {
+      memset(slgReg.reg_data, 0, sizeof(slgReg.reg_data));
+      if (slg.readSlg(controlCode, slgReg.reg_data, 1)) {
         for (int i = 0; i < 16; i++) {
           char num[16];
           uint8_t checksum = 0;
@@ -79,9 +86,9 @@ void handleRoot(void) {
           checksum += 0x10;
           checksum += (i * 16);
           for (int j = 0; j < 16; j++) {
-            snprintf(num, 16, "%02X", data[i * 16 + j]);
+            snprintf(num, 16, "%02X", slgReg.reg_data[i * 16 + j]);
             htmlItem += num;
-            checksum += data[i * 16 + j];
+            checksum += slgReg.reg_data[i * 16 + j];
           }
           checksum = (checksum ^ 0xff) + 1;
           snprintf(num, 16, "%02X", checksum);

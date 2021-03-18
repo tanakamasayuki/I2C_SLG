@@ -2,6 +2,7 @@
 #define __I2C_SLG46826_H__
 
 #include <Wire.h>
+#include "I2C_SLG46826_REG.h"
 
 class I2C_SLG46826 {
   public:
