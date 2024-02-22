@@ -1,6 +1,12 @@
 #ifndef __I2C_SLG46826_REG_H__
 #define __I2C_SLG46826_REG_H__
 
+#ifndef __cplusplus
+  #include <stdint.h>
+#else
+  #include <cstdint>
+#endif
+
 typedef struct {
   union {
     struct {
@@ -296,6 +302,7 @@ typedef struct {
         struct {
           uint8_t io_fast_pull_up_down_enable: 1; // [60H(0), 768:768]
           uint8_t i2c_mode_selection: 1;          // [60H(1), 769:769]
+          uint8_t pad_32__ : 6;
         };
         uint8_t reg_60;
       };
@@ -315,6 +322,7 @@ typedef struct {
           uint8_t io1_output_mode_configuration: 2;         // [62H(2), 787:786]
           uint8_t io1_pull_up_down_resistance_selection: 2; // [62H(4), 789:788]
           uint8_t io1_pull_up_down_selection: 1;            // [62H(6), 790:790]
+          uint8_t pad_01__: 1;
         };
         uint8_t reg_62;
       };
@@ -347,6 +355,7 @@ typedef struct {
           uint8_t io4_output_mode_configuration: 2;         // [66H(2), 819:818]
           uint8_t io4_pull_up_down_resistance_selection: 2; // [66H(4), 821:820]
           uint8_t io4_pull_up_down_selection: 1;            // [66H(6), 822:822]
+          uint8_t pad_02__: 1;
         };
         uint8_t reg_66;
       };
@@ -356,6 +365,7 @@ typedef struct {
           uint8_t io5_output_mode_configuration: 2;         // [67H(2), 827:826]
           uint8_t io5_pull_up_down_resistance_selection: 2; // [67H(4), 829:828]
           uint8_t io5_pull_up_down_selection: 1;            // [67H(6), 830:830]
+          uint8_t pad_03__: 1;
         };
         uint8_t reg_67;
       };
@@ -364,6 +374,7 @@ typedef struct {
           uint8_t : 1;                                      // [68H(0), 832:832]
           uint8_t scl_input_mode_configuration: 2;          // [68H(1), 834:833]
           uint8_t scl_pull_up_down_resistance_selection: 2; // [68H(3), 836:835]
+          uint8_t pad_04__: 3;
         };
         uint8_t reg_68;
       };
@@ -372,6 +383,7 @@ typedef struct {
           uint8_t : 1;                                      // [69H(0), 840:840]
           uint8_t sda_input_mode_configuration: 2;          // [69H(1), 842:841]
           uint8_t sda_pull_up_down_resistance_selection: 2; // [69H(3), 844:843]
+          uint8_t pad_05__: 3;
         };
         uint8_t reg_69;
       };
@@ -401,6 +413,7 @@ typedef struct {
           uint8_t io8_output_mode_configuration: 2;         // [6CH(2), 867:866]
           uint8_t io8_pull_up_down_resistance_selection: 2; // [6CH(4), 869:868]
           uint8_t io8_pull_up_down_selection: 1;            // [6CH(6), 870:870]
+          uint8_t pad_06__: 1;
         };
         uint8_t reg_6c;
       };
@@ -413,6 +426,7 @@ typedef struct {
           uint8_t io9_output_mode_configuration: 2;         // [6EH(2), 883:882]
           uint8_t io9_pull_up_down_resistance_selection: 2; // [6EH(4), 885:884]
           uint8_t io9_pull_up_down_selection: 1;            // [6EH(6), 886:886]
+          uint8_t pad_07__: 1;
         };
         uint8_t reg_6e;
       };
@@ -422,6 +436,7 @@ typedef struct {
           uint8_t io10_output_mode_configuration: 2;          // [6FH(2), 891:890]
           uint8_t io10_pull_up_down_resistance_selection: 2;  // [6FH(4), 893:892]
           uint8_t io10_pull_up_down_selection: 1;             // [6FH(6), 894:894]
+          uint8_t pad_08__: 1;
         };
         uint8_t reg_6f;
       };
@@ -431,6 +446,7 @@ typedef struct {
           uint8_t io11_output_mode_configuration: 2;          // [70H(2), 899:898]
           uint8_t io11_pull_up_down_resistance_selection: 2;  // [70H(4), 901:900]
           uint8_t io11_pull_up_down_selection: 1;             // [70H(6), 902:902]
+          uint8_t pad_09__: 1;
         };
         uint8_t reg_70;
       };
@@ -440,6 +456,7 @@ typedef struct {
           uint8_t io12_output_mode_configuration: 2;          // [71H(2), 907:906]
           uint8_t io12_pull_up_down_resistance_selection: 2;  // [71H(4), 909:908]
           uint8_t io12_pull_up_down_selection: 1;             // [71H(6), 910:910]
+          uint8_t pad_10__: 1;
         };
         uint8_t reg_71;
       };
@@ -449,6 +466,7 @@ typedef struct {
           uint8_t io13_output_mode_configuration: 2;          // [72H(2), 915:914]
           uint8_t io13_pull_up_down_resistance_selection: 2;  // [72H(4), 917:916]
           uint8_t io13_pull_up_down_selection: 1;             // [72H(6), 918:918]
+          uint8_t pad_11__: 1;
         };
         uint8_t reg_72;
       };
@@ -458,6 +476,7 @@ typedef struct {
           uint8_t io14_output_mode_configuration: 2;          // [73H(2), 923:922]
           uint8_t io14_pull_up_down_resistance_selection: 2;  // [73H(4), 925:924]
           uint8_t io14_pull_up_down_selection: 1;             // [73H(6), 926:926]
+          uint8_t pad_12__: 1;
         };
         uint8_t reg_73;
       };
@@ -561,6 +580,7 @@ typedef struct {
           uint8_t second_ckosc1_matrix: 1;  // [7BH(4), 988:988]
           uint8_t second_ckosc0_matrix: 1;  // [7BH(5), 989:989]
           uint8_t por_core: 1;              // [7BH(6), 990:990]
+          uint8_t pad_13__: 1;
         };
         uint8_t reg_7b;
       };
@@ -627,6 +647,7 @@ typedef struct {
           uint8_t osc2_100_ns_startup_delay: 1;   // [83H(4), 1052:1052]
           uint8_t osc0_2nd_matrix_out_enable: 1;  // [83H(5), 1053:1053]
           uint8_t osc1_2nd_matrix_out_enable: 1;  // [83H(6), 1054:1054]
+          uint8_t pad_14__: 1;
         };
         uint8_t reg_83;
       };
@@ -634,6 +655,7 @@ typedef struct {
         struct {
           uint8_t osc1_2nd_matrix_input_matrix_divider_ratio_control: 3; // [84H(0), 1058:1056]
           uint8_t osc0_2nd_matrix_input_matrix_divider_ratio_control: 3; // [84H(3), 1061:1059]
+          uint8_t pad_15__: 2;
         };
         uint8_t reg_84;
       };
@@ -648,6 +670,7 @@ typedef struct {
           uint8_t : 1;                  // [87H(0), 1080:1080]
           uint8_t : 1;                  // [87H(1), 1081:1081]
           uint8_t acmp0l_hysteresis: 2; // [87H(2), 1083:1082]
+          uint8_t pad_16__: 4;
         };
         uint8_t reg_87;
       };
@@ -657,6 +680,7 @@ typedef struct {
           uint8_t : 1;                                                                // [88H(2), 1090:1090]
           uint8_t : 1;                                                                // [88H(3), 1091:1091]
           uint8_t acmp1l_positive_input_come_from_acmp0ls_input_mux_output_enable: 1; // [88H(4), 1092:1092]
+          uint8_t pad_17__: 3;
         };
         uint8_t reg_88;
       };
@@ -686,6 +710,7 @@ typedef struct {
           uint8_t : 2;                      // [8DH(1), 1130:1129]
           uint8_t vref_output_op: 1;        // [8DH(3), 1131:1131]
           uint8_t vref0_input_selection: 2; // [8DH(4), 1133:1132]
+          uint8_t pad_18__: 2;
         };
         uint8_t reg_8d;
       };
@@ -695,6 +720,7 @@ typedef struct {
           uint8_t : 1;            // [8EH(1), 1137:1137]
           uint8_t : 1;            // [8EH(2), 1138:1138]
           uint8_t vref_out_pd: 1; // [8EH(3), 1139:1139]
+          uint8_t pad_19__: 4;
         };
         uint8_t reg_8e;
       };
@@ -784,6 +810,7 @@ typedef struct {
           uint8_t filter_or_edge_detector_selection: 1; // [9BH(3), 1243:1243]
           uint8_t output_polarity_select: 1;            // [9BH(4), 1244:1244]
           uint8_t select_the_edge_mode: 2;              // [9BH(5), 1246:1245]
+          uint8_t pad_20__: 1;
         };
         uint8_t reg_9b;
       };
@@ -800,6 +827,7 @@ typedef struct {
           uint8_t pipe_ripp_cnt_s: 1;                                           // [9DH(2), 1258:1258]
           uint8_t select_the_edge_mode_of_programmable_delay_edge_detector: 2;  // [9DH(3), 1260:1259]
           uint8_t delay_value_select_for_programmable_delay_edge_detector: 2;   // [9DH(5), 1262:1261]
+          uint8_t pad_21__: 1;
         };
         uint8_t reg_9d;
       };
@@ -928,6 +956,7 @@ typedef struct {
           uint8_t : 1;                                  // [AEH(4), 1396:1396]
           uint8_t cnt2_cnt_mode_sync_selection: 1;      // [AEH(5), 1397:1397]
           uint8_t cnt2_dly_edet_function_selection: 1;  // [AEH(6), 1398:1398]
+          uint8_t pad_22__: 1;
         };
         uint8_t reg_ae;
       };
@@ -974,6 +1003,7 @@ typedef struct {
           uint8_t : 1;                                  // [B4H(1), 1441:1441]
           uint8_t cnt3_cnt_mode_sync_selection: 1;      // [B4H(2), 1442:1442]
           uint8_t cnt3_dly_edet_function_selection: 1;  // [B4H(3), 1443:1443]
+          uint8_t pad_27__: 4;
         };
         uint8_t reg_b4;
       };
@@ -998,6 +1028,7 @@ typedef struct {
           uint8_t : 1;                                  // [B7H(4), 1468:1468]
           uint8_t cnt4_cnt_mode_sync_selection: 1;      // [B7H(5), 1469:1469]
           uint8_t cnt4_dly_edet_function_selection: 1;  // [B7H(6), 1470:1470]
+          uint8_t pad_23__: 1;
         };
         uint8_t reg_b7;
       };
@@ -1044,6 +1075,7 @@ typedef struct {
           uint8_t : 1;                                  // [BDH(1), 1513:1513]
           uint8_t cnt5_cnt_mode_sync_selection: 1;      // [BDH(2), 1514:1514]
           uint8_t cnt5_dly_edet_function_selection: 1;  // [BDH(3), 1515:1515]
+          uint8_t pad_24__: 4;
         };
         uint8_t reg_bd;
       };
@@ -1068,6 +1100,7 @@ typedef struct {
           uint8_t : 1;                                  // [C0H(4), 1540:1540]
           uint8_t cnt6_cnt_mode_sync_selection: 1;      // [C0H(5), 1541:1541]
           uint8_t cnt6_dly_edet_function_selection: 1;  // [C0H(6), 1542:1542]
+          uint8_t pad_28__: 1;
         };
         uint8_t reg_c0;
       };
@@ -1103,6 +1136,7 @@ typedef struct {
         struct {
           uint8_t cnt7_initial_value_selection: 2;      // [C5H(0), 1577:1576]
           uint8_t cnt7_dly_edet_function_selection: 1;  // [C5H(2), 1578:1578]
+          uint8_t pad_25__: 5;
         };
         uint8_t reg_c5;
       };
@@ -1130,6 +1164,7 @@ typedef struct {
           uint8_t : 1;                                                                // [C8H(0), 1600:1600]
           uint8_t i2c_reset_bit_with_reloading_nvm_into_data_register_soft_reset: 1;  // [C8H(1), 1601:1601]
           uint8_t io_latching_enable_during_i2c_write_interface: 1;                   // [C8H(2), 1602:1602]
+          uint8_t pad_26__: 5;
         };
         uint8_t reg_c8;
       };
@@ -1219,23 +1254,27 @@ typedef struct {
         struct {
           uint8_t register_read_selection_bits: 2;  // [E0H(0), 1793:1792]
           uint8_t register_write_selection_bits: 2; // [E0H(2), 1795:1794]
+          uint8_t pad_29__: 4;
         };
         uint8_t reg_e0;
       };
       union {
         struct {
           uint8_t nvm_configuration_selection_bits: 2; // [E1H(0), 1801:1800]
+          uint8_t pad_30__: 6;
         };
         uint8_t reg_e1;
-      };
-      union {
-        uint8_t reg_e2;
       };
       union {
         struct {
           uint8_t : 2;                                // [E2H(0), 1809:1808]
           uint8_t write_protect_register_enable: 1;   // [E2H(2), 1810:1810]
           uint8_t : 5;                                // [E2H(3), 1815:1811]
+        };
+        uint8_t reg_e2;
+      };
+      union {
+        struct {
           uint8_t page_selection_for_erase_erseb: 5;  // [E3H(0), 1820:1816]
           uint8_t : 1;                                // [E3H(5), 1821:1821]
           uint8_t : 1;                                // [E3H(6), 1822:1822]
@@ -1246,6 +1285,7 @@ typedef struct {
       union {
         struct {
           uint8_t protection_lock_bit_prl: 1; // [E4H(0), 1824:1824]
+          uint8_t pad_31__: 7;
         };
         uint8_t reg_e4;
       };
@@ -1335,6 +1375,12 @@ typedef struct {
     uint8_t reg_data[256];
   };
 } slg_register_t;
+
+#if !defined(__cplusplus)
+  static_assert(256U == sizeof(slg_register_t), "Failed sizeof slg_register_t");
+#endif
+
+#ifdef __cplusplus
 
 inline void debug_print_slg46826(const slg_register_t &slgReg) {
   Serial.println();
@@ -1634,5 +1680,7 @@ inline void debug_print_slg46826(const slg_register_t &slgReg) {
 
   Serial.println();
 }
+
+#endif // if __cplusplus
 
 #endif
